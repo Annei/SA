@@ -2,43 +2,39 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Sistema de Archivos Digitales</title>
+	<title>Sistema de Archivos</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
 <div class="container">
-	<h1 class="page-header text-center">Sistema de Archivos</h1>
+	<h1 class="page-header text-center">Sistema de Archivos Digitales</h1>
+
 	<div class="row">
 		<div class="col-md-4">
 			<div class="well">
-				<h2 class="text-center"> Datos de Expediente</h2>
+				<h2 class="text-center">Datos Expedientes</h2>
 				<form>
 					<div class="form-row">
-						<div class="col">
-							<strong>Matricula</strong>
-						</div>
-						<div class="col">
-								<strong>Nombre</strong>
-						</div>
-						<div class="col">
-								<strong>Carrera</strong>
-						</div>
-						<div class="col">
-								<strong>Status</strong>
-						</div>
+							<div class="col">
+									<strong>Matricula</strong>
+								</div>
+								<div class="col">
+										<strong>Nombre</strong>
+								</div>
+								<div class="col">
+										<strong>Carrera</strong>
+								</div>
+								<div class="col">
+										<strong>Status</strong>
+								</div>
 					</div>
 				</form>
 
-				
 			</div>
-			
 		</div>
-		<div class="form-group">
+	</div><!--Div expedientes fin-->
 			
-
-		</div>
-	</div>
 				
 	<div class="row">
 		<div class="col-md-4">
@@ -47,7 +43,7 @@
 				<form method="POST" action="{{ route('upload.file') }}" enctype="multipart/form-data">
 					{{ csrf_field() }}
 					<input type="file" name="file[]" multiple><br>
-					<button type="submit" class="btn btn-primary">Upload</button>
+					<button type="submit" class="btn btn-primary">Agregar</button>
 				</form>
 			</div>
 			<div style="margin-top:20px;">
@@ -65,46 +61,50 @@
 				</div>
 			@endif
 			</div>
-		</div>
-		<div class="col-md-8">
-			<h2>Archivos</h2>
+		</div><!--Div archivos y error fin-->
+		@section('content')
+		<div class="container">
+				<div class="col-md-7">
+					<h2>Carpetas</h2>
+					
+						<table class="table table-bordered table-striped">
+							<thead>
+								<th>Nombre del</th>
+								<th>File Size</th>
+								<th>Date Uploaded</th>
+								<th>File Location</th>
+							</thead>
+							<tbody>
+								@if(count($files) > 0)
+									@foreach($files as $file)
+										<tr>
+											<td>{{ $file->name }}</td>
+											<td> 
+												@if($file->size < 1000)
+													{{ number_format($file->size,2) }} bytes
+												@elseif($file->size >= 1000000)
+													{{ number_format($file->size/1000000,2) }} mb
+												@else
+													{{ number_format($file->size/1000,2) }} kb
+												@endif
+											</td>
+											<td>{{ date('M d, Y h:i A', strtotime($file->created_at)) }}</td>
+											<td><a href="{{ $file->location }}">{{ $file->location }}</a></td>
+										</tr>
+										<!--<img src='storage/upload/{{$file->name}}' name="{{$file->name}}" class="thumbnail">-->
+									@endforeach
+								@else
+									<tr>
+										<td colspan="4" class="text-center">No Table Data</td>
+									</tr>
+								@endif
+							</tbody>
+						</table>
+				</div>
+			</div>		
 			
-				<table class="table table-bordered table-striped">
-					<thead>
-						<th>Nombre del Archivo</th>
-						<th>Tamaño</th>
-						<th>Fecha</th>
-						<th>Ubicacion</th>
-					</thead>
-					<tbody>
-						@if(count($files) > 0)
-							@foreach($files as $file)
-								<tr>
-									<td>{{ $file->name }}</td>
-									<td> 
-										@if($file->size < 1000)
-											{{ number_format($file->size,2) }} bytes
-										@elseif($file->size >= 1000000)
-											{{ number_format($file->size/1000000,2) }} mb
-										@else
-											{{ number_format($file->size/1000,2) }} kb
-										@endif
-									</td>
-									<td>{{ date('M d, Y h:i A', strtotime($file->created_at)) }}</td>
-									<td><a href="{{ $file->location }}">{{ $file->location }}</a></td>
-								</tr>
-								<!--<img src='storage/upload/{{$file->name}}' name="{{$file->name}}" class="thumbnail">-->
-							@endforeach
-						@else
-							<tr>
-								<td colspan="4" class="text-center">No hay datos</td>
-							</tr>
-						@endif
-					</tbody>
-				</table>
-			
-			
-			
+		@endsection
+		
 		</div>
 	</div>
 </div>
