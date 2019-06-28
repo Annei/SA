@@ -11,7 +11,7 @@ class UploadController extends Controller
 
     	$files = File::all();
 
-    	return view('upload')->with('files', $files);
+    	return view('upload2')->with('files', $files);
     }
 
     public function store(Request $request){
