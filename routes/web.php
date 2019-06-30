@@ -17,3 +17,9 @@ Route::post('/store','UploadController@store')->name('upload.file');
 
 Route::get('/show','UploadController@show');
 
+
+    
+Route::get('/', 'UploadController@descarga');
+
+Route::get('delete/{id}', 'UploadController@deletefiles');
+

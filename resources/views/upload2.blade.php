@@ -66,7 +66,7 @@
                                                     <th>Nombre del Archivo</th>
                                                     <th>Tamaño del Archivo</th>
                                                     <th>Actualización</th>
-                                                    <th>Descarga</th>
+                                                    <th>Acción</th>
                                                 </thead>
                                                 <tbody>
                                                     @if(count($files) > 0)
@@ -83,9 +83,27 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>{{ date('M d, Y h:i A', strtotime($file->created_at)) }}</td>
-                                                                
+                                                                <td>
+                                                                            <a href="download/{{$file->name}}" download="{{$file->name}}">
+                                                                                <button type="button" title="Descargar" class="btn btn-primary">
+                                                                                <i class="glyphicon glyphicon-download-alt">
+                                                                                
+                                                                                </i>
+                                                                                </button>
+                                                                            </a>
+                                                                           
+                                                                            <a href="{{url('delete/'. $file->id)}}" >
+                             
+                                                                                <button type="submit" title="Eliminar"class="btn btn-danger">
+                                                                                <i class="glyphicon glyphicon-remove-circle"></i>
+                                                                                </button>
+                                                                            </a>
+                                                            
+                                                                   
+
+                                                                </td>
                                                             </tr>
-                                                            <!--<img src='storage/upload/{{$file->name}}' name="{{$file->name}}" class="thumbnail">-->
+                                                            
                                                         @endforeach
                                                     @else
                                                         <tr>
@@ -138,9 +156,28 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>{{ date('M d, Y h:i A', strtotime($file->created_at)) }}</td>
+                                                                <td>
+                                                                        <a href="download/{{$file->name}}" download="{{$file->name}}">
+                                                                            <button type="button" title="Descargar" class="btn btn-primary">
+                                                                            <i class="glyphicon glyphicon-download-alt">
+                                                                            
+                                                                            </i>
+                                                                            </button>
+                                                                        </a>
+                                                                       
+                                                                        <a href="{{url('delete/'. $file->id)}}" >
+                         
+                                                                            <button type="submit" title="Eliminar"class="btn btn-danger">
+                                                                            <i class="glyphicon glyphicon-remove-circle"></i>
+                                                                            </button>
+                                                                        </a>
+
+
+
+                                                                </td>
                                                                 
                                                             </tr>
-                                                            <!--<img src='storage/upload/{{$file->name}}' name="{{$file->name}}" class="thumbnail">-->
+                                                            
                                                         @endforeach
                                                     @else
                                                         <tr>
@@ -190,9 +227,25 @@
                                                                     @endif
                                                                 </td>
                                                                 <td>{{ date('M d, Y h:i A', strtotime($file->created_at)) }}</td>
+                                                                <td>
+                                                                        <a href="download/{{$file->location}}" download="{{$file->location}}">
+                                                                            <button type="button" title="Descargar" class="btn btn-primary">
+                                                                            <i class="glyphicon glyphicon-download-alt">
+                                                                            
+                                                                            </i>
+                                                                            </button>
+                                                                        </a>
+                                                                       
+                                                                        <a href="{{url('delete/'. $file->id)}}" >
+                                                                            <button type="submit" title="Eliminar"class="btn btn-danger">
+                                                                            <i class="glyphicon glyphicon-remove-circle"></i>
+                                                                            </button>
+                                                                        </a>
+
+                                                                </td>
                                                                 
                                                             </tr>
-                                                            <!--<img src='storage/upload/{{$file->name}}' name="{{$file->name}}" class="thumbnail">-->
+                                                            
                                                         @endforeach
                                                     @else
                                                         <tr>
